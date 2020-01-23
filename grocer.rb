@@ -31,23 +31,22 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-  i = 0 
-  while i < coupons.length do 
-    name = coupons[i][:item]
-    if cart[name] && cart[name][:count] >= coupons[i][:num]
-      if cart["#{name} W/COUPON"]
-        cart["#{name} W/COUPON"][:count] += 1 
-      else 
-        cart["#{name} W/COUPON"] = {
-          :count => 1,
-          :price => coupons[i][:cost]
-        }
-        cart["#{name} W/COUPON"][:clearance] = cart[name][:clearance]
-      end 
-      cart[name][:count] -= coupons[i][:num]
+  coupons.each do |coupon| 
+    coupon.each do |attribute, value| 
+      name = coupon[:item] 
+    
+      if cart[name] && cart[name][:count] >= coupon[:num] 
+        if cart["#{name} W/COUPON"] 
+          cart["#{name} W/COUPON"][:count] += 1 
+        else 
+          cart["#{name} W/COUPON"] = {:price => coupon[:cost], 
+          :clearance => cart[name][:clearance], :count => 1} 
+        end 
+  
+      cart[name][:count] -= coupon[:num] 
     end 
-    i += 1
   end 
+end 
   cart 
 end
   
