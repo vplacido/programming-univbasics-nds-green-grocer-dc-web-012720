@@ -37,13 +37,13 @@ def apply_coupons(cart, coupons)
   newArr = []
   i = 0 
   while i < coupons.length do 
-    item = find_item_by_name_in_collection(coupons[i][:item], newArr)
-    newItem = find_item_by_name_in_collection(coupons[i][:item]+" W/COUPON", newArr)
+    item = find_item_by_name_in_collection(coupons[i][:item], cart)
+    newItem = find_item_by_name_in_collection(coupons[i][:item]+" W/COUPON", cart)
     if newItem and item[:count] >= coupons[i][:num]
       newItem[:count] += coupons[i][:num]
       item[:count] -= coupons[i][:num]
     elsif item and newItem[:count] >= coupons[i][:num]
-      newArr << {
+      cart << {
         :item => coupons[i][:item] + " W/COUPON",
         :price => (coupons[i][:cost]/coupons[i][:num]).round(2),
         :clearance => item[:clearance],
@@ -53,7 +53,7 @@ def apply_coupons(cart, coupons)
     end 
     i += 1
   end 
-  newArr
+  cart
 end
 
 def apply_clearance(cart)
