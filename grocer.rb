@@ -39,7 +39,7 @@ def apply_coupons(cart, coupons)
   while i < coupons.length do 
     item = find_item_by_name_in_collection(coupons[i][:item], cart)
     newItem = find_item_by_name_in_collection(coupons[i][:item]+" W/COUPON", cart)
-    if newItem and item[]
+    if newItem and item[:count]
   
   newArr
 end
