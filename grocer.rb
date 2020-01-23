@@ -51,6 +51,7 @@ def apply_coupons(cart, coupons)
       }
       item[:count] -= coupons[i][:num]
     end 
+    i += 1
   end 
   newArr
 end
