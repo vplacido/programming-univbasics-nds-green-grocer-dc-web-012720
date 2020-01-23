@@ -66,7 +66,12 @@ def checkout(cart, coupons)
   # some irritated customers
   total = 0.0 
   newCart = consolidate_cart(cart)
-  
+  finalCart = apply_clearance(apply_coupons(newCart, coupons))
+  i = 0 
+  while i < finalCart.length do 
+    total += finalCart[i][:price]
+    i += 1 
+  end
   if total > 100
     return total * 0.9
   end 
