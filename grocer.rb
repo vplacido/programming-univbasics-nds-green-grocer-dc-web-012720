@@ -31,7 +31,6 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-  newArr = []
   i = 0 
   while i < coupons.length do 
     item = find_item_by_name_in_collection(coupons[i][:item], cart)
