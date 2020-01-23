@@ -43,7 +43,9 @@ def apply_coupons(cart, coupons)
       newItem[:count] += coupons[i][:num]
       item[:count] -= coupons[i][:num]
     elsif item and newItem[:count] >= coupons[i][:num]
-      
+      cart << {
+        
+      }
   
   newArr
 end
