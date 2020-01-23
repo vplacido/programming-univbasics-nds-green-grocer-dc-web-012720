@@ -31,28 +31,27 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-  # Consult README for inputs and outputs
-  #
-  # REMEMBER: This method **should** update cart
-  coupons.each do |coupon|
-  #	    item_info = find_item_by_name_in_collection(coupon[:item], cart)
-  # REMEMBER: This method **should** update cart		  item_w_coupon = find_item_by_name_in_collection(coupon[:item]+" W/COUPON", cart)
-   if item_w_coupon and item_info[:count] >= coupon[:num]
-	    item_w_coupon[:count] += coupon[:num]
-	    item_info[:count] -= coupon[:num]
-	  elsif item_info and item_info[:count] >= coupon[:num]
+  newArr = []
+  i = 0 
+  while i < coupons.length do 
+    item = find_item_by_name_in_collection(coupons[i][:item], cart)
+    newItem = find_item_by_name_in_collection(coupons[i][:item]+" W/COUPON", cart)
+    if newItem and item[:count] >= coupons[i][:num]
+      newItem[:count] += coupons[i][:num]
+      item[:count] -= coupons[i][:num]
+    elsif item and newItem[:count] >= coupons[i][:num]
       cart << {
-        :item => coupon[:item] + " W/COUPON",
-        :price => (coupon[:cost]/coupon[:num]).round(2),
-        :clearance => item_info[:clearance],
-        :count => coupon[:num]
+        :item => coupons[i][:item] + " W/COUPON",
+        :price => (coupons[i][:cost]/coupons[i][:num]).round(2),
+        :clearance => item[:clearance],
+        :count => coupons[i][:num]
       }
-      item_info[:count] -= coupon[:num]
-    end #if
-  end #each
-  #cart.delete_if{|item_info| item_info[:count] <= 0}
+      item[:count] -= coupons[i][:num]
+    end 
+    i += 1
+  end 
   cart
-end #method apply_coupons
+end
   
 
 def apply_clearance(cart)
