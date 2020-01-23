@@ -50,6 +50,8 @@ def apply_coupons(cart, coupons)
         :count => coupons[i][:num]
       }
       item[:count] -= coupons[i][:num]
+    end 
+  end 
   newArr
 end
 
