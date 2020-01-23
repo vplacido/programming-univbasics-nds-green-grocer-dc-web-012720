@@ -53,27 +53,7 @@ end	    if item_w_coupon and item_info[:count] >= coupon[:num]
   #cart.delete_if{|item_info| item_info[:count] <= 0}
   cart
 end #method apply_coupons
-  newArr = []
-  i = 0 
-  while i < coupons.length do 
-    item = find_item_by_name_in_collection(coupons[i][:item], cart)
-    newItem = find_item_by_name_in_collection(coupons[i][:item]+" W/COUPON", cart)
-    if newItem and item[:count] >= coupons[i][:num]
-      newItem[:count] += coupons[i][:num]
-      item[:count] -= coupons[i][:num]
-    elsif item and newItem[:count] >= coupons[i][:num]
-      cart << {
-        :item => coupons[i][:item] + " W/COUPON",
-        :price => (coupons[i][:cost]/coupons[i][:num]).round(2),
-        :clearance => item[:clearance],
-        :count => coupons[i][:num]
-      }
-      item[:count] -= coupons[i][:num]
-    end 
-    i += 1
-  end 
-  cart
-end
+  
 
 def apply_clearance(cart)
   # Consult README for inputs and outputs
