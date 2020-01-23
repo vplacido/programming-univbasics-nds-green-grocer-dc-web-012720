@@ -65,6 +65,10 @@ def checkout(cart, coupons)
   # BEFORE it begins the work of calculating the total (or else you might have
   # some irritated customers
   total = 0.0 
+  newCart = consolidate_cart(cart)
   
+  if total > 100
+    return total * 0.9
+  end 
   total 
 end
