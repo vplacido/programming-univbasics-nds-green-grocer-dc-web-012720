@@ -43,7 +43,7 @@ def apply_coupons(cart, coupons)
       newItem[:count] += coupons[i][:num]
       item[:count] -= coupons[i][:num]
     elsif item and newItem[:count] >= coupons[i][:num]
-      cart << {
+      newArr << {
         :item => coupons[i][:item] + " W/COUPON",
         :price => (coupons[i][:cost]/coupons[i][:num]).round(2),
         :clearance => item[:clearance],
@@ -52,7 +52,7 @@ def apply_coupons(cart, coupons)
       item[:count] -= coupons[i][:num]
     end 
   end 
-  cart
+  newArr
 end
 
 def apply_clearance(cart)
