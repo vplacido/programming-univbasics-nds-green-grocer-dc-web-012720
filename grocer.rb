@@ -36,6 +36,7 @@ def apply_coupons(cart, coupons)
   # REMEMBER: This method **should** update cart
   newArr = []
   
+  
   newArr
 end
 
