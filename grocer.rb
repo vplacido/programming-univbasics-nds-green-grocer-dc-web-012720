@@ -31,23 +31,22 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-  coupons.each do |coupon| 
-    coupon.each do |attribute, value| 
-      name = coupon[:item] 
-    
-      if cart[name] && cart[name][:count] >= coupon[:num] 
-        if cart["#{name} W/COUPON"] 
-          cart["#{name} W/COUPON"][:count] += 1 
-        else 
-          cart["#{name} W/COUPON"] = {:price => coupon[:cost], 
-          :clearance => cart[name][:clearance], :count => 1} 
-        end 
-  
-      cart[name][:count] -= coupon[:num] 
-    end 
+  coupons_index = 0
+
+  while coupons_index < coupons.size do
+    current_coupon = coupons[coupons_index]
+    applicable_for_discount = find_item_by_name_in_collection( current_coupon[:item], cart )
+      if ( applicable_for_discount[:count] / current_coupon[:num] >= 1 )
+        cart.push( {:item => "#{current_coupon[:item]} W/COUPON",
+                    :price => (current_coupon[:cost] / current_coupon[:num]).round(2),
+                    :clearance => applicable_for_discount[:clearance],
+                    :count => applicable_for_discount[:count] - ( applicable_for_discount[:count] % current_coupon[:num])})
+
+        applicable_for_discount[:count] %= current_coupon[:num]
+      end
+    coupons_index += 1
   end
-end 
-  cart 
+  cart
 end
   
 
